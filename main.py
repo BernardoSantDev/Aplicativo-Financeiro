@@ -100,7 +100,7 @@ def gerar_insight_ia(ganhos, gastos, saldo, categorias_ganhos, categorias_gastos
         model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
-        max_tokens=500
+        max_tokens=2000
     )
     return resposta.choices[0].message.content
 
@@ -125,7 +125,7 @@ if uploaded_file is not None:
         st.table(df_ganhos.sort_values(by='Total ganho', ascending=False))
     else:
         st.write("Nenhuma entrada encontrada.")
-        st.subheader("📤 Tabela de Saídas (Gastos)")
+    st.subheader("📤 Tabela de Saídas (Gastos)")
     if categorias_gastos:
         df_gastos = pd.DataFrame(list(categorias_gastos.items()), columns=['Categoria', 'Total gasto'])
         st.table(df_gastos.sort_values(by='Total gasto', ascending=False))
