@@ -40,3 +40,12 @@ def processar_conversas(conteudo):
                 categorias_ganhos[categoria] = categorias_ganhos.get(categoria, 0) + valor
     saldo = ganhos - gastos
     return ganhos, gastos, saldo, categorias_ganhos, categorias_gastos
+
+def gerar_grafico(ganhos, gastos):
+    labels = ['Ganhos', 'Gastos']
+    valores = [ganhos, gastos]
+    cores = ['#007acc', '#FFA500'] 
+    fig, ax = plt.subplots()
+    ax.pie(valores, labels=labels, autopct='%1.1f%%', colors=cores, startangle=90)
+    ax.axis('equal') 
+    st.pyplot(fig)   
