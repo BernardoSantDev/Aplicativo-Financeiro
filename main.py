@@ -103,4 +103,35 @@ def gerar_insight_ia(ganhos, gastos, saldo, categorias_ganhos, categorias_gastos
         max_tokens=500
     )
     return resposta.choices[0].message.content
-    
+
+
+st.set_page_config(page_title="Analisador Financeiro de WhatsApp com IA", layout="centered")
+st.title("💰 Analisador Financeiro de WhatsApp com IA")
+st.write("📄 Envie um arquivo `.txt` com mensagens no formato:")
+st.code("16/07/2025 15:04 - Nome: descrição, categoria, +R$3000")
+uploaded_file = st.file_uploader("📥 Envie seu arquivo aqui", type=['txt'])
+if uploaded_file is not None:
+    conteudo = uploaded_file.read().decode('utf-8')
+    ganhos, gastos, saldo, categorias_ganhos, categorias_gastos = processar_conversas(conteudo)
+    st.subheader("📊 Resumo Financeiro")
+    st.write(f"**Saldo atual:** R$ {saldo}")
+    st.write(f"**Total de ganhos:** R$ {ganhos}")
+    st.write(f"**Total de gastos:** R$ {gastos}")
+    st.subheader("🍕 Gráfico de Ganhos vs Gastos")
+    gerar_grafico(ganhos, gastos)
+    st.subheader("📥 Tabela de Entradas (Ganhos)")
+    if categorias_ganhos:
+        df_ganhos = pd.DataFrame(list(categorias_ganhos.items()), columns=['Categoria', 'Total ganho'])
+        st.table(df_ganhos.sort_values(by='Total ganho', ascending=False))
+    else:
+        st.write("Nenhuma entrada encontrada.")
+        st.subheader("📤 Tabela de Saídas (Gastos)")
+    if categorias_gastos:
+        df_gastos = pd.DataFrame(list(categorias_gastos.items()), columns=['Categoria', 'Total gasto'])
+        st.table(df_gastos.sort_values(by='Total gasto', ascending=False))
+    else:
+        st.write("Nenhuma saída encontrada.")
+    st.subheader("🤖 Insight Gerado por IA")
+    with st.spinner("💡 Analisando seus dados e gerando um insight..."):
+        insight = gerar_insight_ia(ganhos, gastos, saldo, categorias_ganhos, categorias_gastos)
+    st.success(insight)
