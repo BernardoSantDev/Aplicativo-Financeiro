@@ -70,7 +70,7 @@ Para que o sistema leia seus dados corretamente, cada linha do arquivo de texto 
 
 ### 2. Clonando o Repositório
 ```bash
-git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+git clone [https://github.com/BernardoSantDev/Aplicativo-Financeiro.git)
 cd seu-repositorio
 ```
 
