@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import re                             
 import os                             
 from dotenv import load_dotenv        
+import openai
 from openai import OpenAI             
 
 
@@ -96,13 +97,21 @@ def gerar_insight_ia(ganhos, gastos, saldo, categorias_ganhos, categorias_gastos
     ---
     **Tom de Voz:** Profissional, empático, direto e focado em soluções. Use formatação Markdown (negrito, listas) para facilitar a leitura.
     """
-    resposta = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=2000
-    )
-    return resposta.choices[0].message.content
+    
+    try:
+        resposta = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=2000
+        )
+        return resposta.choices[0].message.content
+    
+    except openai.APIConnectionError:
+        return "⚠️ Erro de conexão: Não foi possível conectar aos servidores da IA no momento. Verifique sua internet e tente novamente."
+    
+    except Exception as e:
+        return f"⚠️ Ocorreu um erro inesperado: {e}"
 
 
 st.set_page_config(page_title="Analisador Financeiro de WhatsApp com IA", layout="centered")
