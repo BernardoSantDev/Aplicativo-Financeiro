@@ -70,8 +70,8 @@ Para que o sistema leia seus dados corretamente, cada linha do arquivo de texto 
 
 ### 2. Clonando o Repositório
 ```bash
-git clone [https://github.com/BernardoSantDev/Aplicativo-Financeiro.git)
-cd seu-repositorio
+git clone [https://github.com/BernardoSantDev/Aplicativo-Financeiro.git](https://github.com/BernardoSantDev/Aplicativo-Financeiro.git)
+cd Aplicativo-Financeiro
 ```
 
 ### 3. Criando o Ambiente Virtual (Recomendado)
